@@ -13,7 +13,6 @@ type Boom struct {
 }
 
 func NewBoom(w int, h int) *Boom {
-
 	return &Boom{
 		image.NewRGBA(image.Rect(0, 0, w, h)),
 		&Brush{},
@@ -27,9 +26,25 @@ func (b *Boom) SaveBoom() {
 	png.Encode(outputFile, b.boom)
 	outputFile.Close()
 }
-
+func (b *Boom) DrawRect(x int,y int , xx int , yy int){
+	for i := x; i <= xx; i++ {
+		for j := y; j <= yy; j++ {
+			boom.Draw(i, j)
+		}
+	}
+}
+func (b *Boom) DrawLineH(x int,y int , xx int ){
+	for i := x; i <= xx; i++ {
+		b.Draw(i,y)
+	}
+}
+func (b *Boom) DrawLineV(x int,y int , yy int){
+	for i := y; i <= yy; i++ {
+		b.Draw(x,i)
+	}
+}
 func (b *Boom) Draw(x int,y int) {
-
-	r:=image.Rect(x, y, x+b.brush.siz.Bounds().Dx(),y+b.brush.siz.Bounds().Dy() )
+	brs:=b.brush.siz.Bounds().Dx()
+	r:=image.Rect(x*brs, y*brs, x*brs+brs,y*brs+brs )
 	draw.Draw(b.boom, r.Bounds(), &image.Uniform{b.brush.clr}, image.ZP, draw.Src)
 }
