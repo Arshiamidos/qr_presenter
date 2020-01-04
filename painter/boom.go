@@ -2,13 +2,14 @@ package painter
 
 import (
 	"image"
+	"image/color"
 	"image/draw"
 	"image/png"
 	"os"
 )
 
 type Boom struct {
-	boom *image.RGBA
+	boom  *image.RGBA
 	brush *Brush
 }
 
@@ -26,25 +27,48 @@ func (b *Boom) SaveBoom() {
 	png.Encode(outputFile, b.boom)
 	outputFile.Close()
 }
-func (b *Boom) DrawRect(x int,y int , xx int , yy int){
+func (b *Boom) DrawRect(x int, y int, xx int, yy int) {
 	for i := x; i <= xx; i++ {
 		for j := y; j <= yy; j++ {
 			boom.Draw(i, j)
 		}
 	}
 }
-func (b *Boom) DrawLineH(x int,y int , xx int ){
+func (b *Boom) DrawLineH(x int, y int, xx int) {
 	for i := x; i <= xx; i++ {
-		b.Draw(i,y)
+		b.Draw(i, y)
 	}
 }
-func (b *Boom) DrawLineV(x int,y int , yy int){
+func (b *Boom) DrawLineV(x int, y int, yy int) {
 	for i := y; i <= yy; i++ {
-		b.Draw(x,i)
+		b.Draw(x, i)
 	}
 }
-func (b *Boom) Draw(x int,y int) {
-	brs:=b.brush.siz.Bounds().Dx()
-	r:=image.Rect(x*brs, y*brs, x*brs+brs,y*brs+brs )
+func (b *Boom) DrawLineZebraH(x int, y int, xx int) {
+
+	for i := x; i <= xx; i++ {
+		if(i%2!=0){
+			b.brush.ChangeColor(color.RGBA{0, 0, 0, 255})
+			b.Draw(i, y)
+		}else{
+			b.brush.ChangeColor(color.RGBA{255, 255, 255, 255})
+			b.Draw(i, y)
+		}
+	}
+}
+func (b *Boom) DrawLineZebraV(x int, y int, yy int) {
+	for i := y; i <= yy; i++ {
+		if(i%2!=0){
+			b.brush.ChangeColor(color.RGBA{0, 0, 0, 255})
+			b.Draw(x, i)
+		}else{
+			b.brush.ChangeColor(color.RGBA{255, 255, 255, 255})
+			b.Draw(x, i)
+		}
+	}
+}
+func (b *Boom) Draw(x int, y int) {
+	brs := b.brush.siz.Bounds().Dx()
+	r := image.Rect(x*brs, y*brs, x*brs+brs, y*brs+brs)
 	draw.Draw(b.boom, r.Bounds(), &image.Uniform{b.brush.clr}, image.ZP, draw.Src)
 }

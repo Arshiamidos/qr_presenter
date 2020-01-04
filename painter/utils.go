@@ -85,8 +85,10 @@ func AddSepratorPattern() {
 	boom.DrawLineH(boom.boom.Rect.Dx()/BRUSH_SIZE-8,8,boom.boom.Rect.Dx()/BRUSH_SIZE)
 	boom.DrawLineV(boom.boom.Rect.Dx()/BRUSH_SIZE-8,1,8)
 }
-func AddAlignmentPattern() {
 
+func AddAlignmentPattern() {
+	boom.DrawLineZebraH(9,7,boom.boom.Rect.Dx()/BRUSH_SIZE-9)
+	boom.DrawLineZebraV(7,9,boom.boom.Rect.Dy()/BRUSH_SIZE-9)
 }
 func AddTimingPattern() {
 
@@ -109,9 +111,9 @@ func CalcPenalty_2() {}
 func CalcPenalty_3() {}
 func CalcPenalty_4() {}
 
-func PaintV(v int) {
+func PaintV(v int,brsh_size int ) {
 
-	BRUSH_SIZE=20
+	BRUSH_SIZE=brsh_size
 	V := utils.QrSize(v)
 	boom = NewBoom((V+1)*BRUSH_SIZE, (V+1)*BRUSH_SIZE)
 	brush = NewBrush(BRUSH_SIZE, BRUSH_SIZE)

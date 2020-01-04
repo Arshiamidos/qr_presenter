@@ -2,5 +2,5 @@ package main
 import  "qr_presenter/painter";
 
 func main(){
-	painter.PaintV(1)
+	painter.PaintV(1,20)
 }
