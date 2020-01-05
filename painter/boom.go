@@ -67,6 +67,15 @@ func (b *Boom) DrawLineZebraV(x int, y int, yy int) {
 		}
 	}
 }
+func (b *Boom) DrawAlign(x int,y int){
+	b.brush.ChangeColor(color.RGBA{255, 0, 0, 255})
+	b.DrawRect(
+		x-2*b.brush.siz.Bounds().Dx(),
+		y-2*b.brush.siz.Bounds().Dx(),
+		x+2*b.brush.siz.Bounds().Dx(),
+		y+2*b.brush.siz.Bounds().Dx(),
+	)
+}
 func (b *Boom) Draw(x int, y int) {
 	brs := b.brush.siz.Bounds().Dx()
 	r := image.Rect(x*brs, y*brs, x*brs+brs, y*brs+brs)

@@ -86,12 +86,32 @@ func AddSepratorPattern() {
 	boom.DrawLineV(boom.boom.Rect.Dx()/BRUSH_SIZE-8,1,8)
 }
 
-func AddAlignmentPattern() {
-	boom.DrawLineZebraH(9,7,boom.boom.Rect.Dx()/BRUSH_SIZE-9)
-	boom.DrawLineZebraV(7,9,boom.boom.Rect.Dy()/BRUSH_SIZE-9)
+func AddAlignmentPattern(v int) {
+	aligns_:=utils.AlignmentPatternLocation(v)
+	aligns:=[]int{}
+	for  _,k := range aligns_ {
+		if k!=0{
+			aligns=append(aligns,k)
+		}
+	}
+	for i := 0; i < len(aligns); i++ {
+		for j := 0; j < len(aligns); j++ {
+			if !((i==0 && j==0) || (i==0 &&j==len(aligns)-1) || (j==0 &&i==len(aligns)-1) ) {
+				//fmt.Println(aligns[i]+1,aligns[j]+1)
+				brush.ChangeColor(color.RGBA{0,0,0,255})
+				boom.DrawRect(aligns[i]+1-2,aligns[j]+1-2,aligns[i]+1+2,aligns[j]+1+2)
+				brush.ChangeColor(color.RGBA{255,255,255,255})
+				boom.DrawRect(aligns[i]+1-1,aligns[j]+1-1,aligns[i]+1+1,aligns[j]+1+1)	
+				brush.ChangeColor(color.RGBA{0,0,0,255})
+				boom.Draw(aligns[i]+1,aligns[j]+1)	
+
+			}
+		}
+	}
 }
 func AddTimingPattern() {
-
+	boom.DrawLineZebraH(9,7,boom.boom.Rect.Dx()/BRUSH_SIZE-9)
+	boom.DrawLineZebraV(7,9,boom.boom.Rect.Dy()/BRUSH_SIZE-9)
 }
 func AddDarkModule() {
 
@@ -122,7 +142,7 @@ func PaintV(v int,brsh_size int ) {
 
 	AddFinderPattern()
 	AddSepratorPattern()
-	AddAlignmentPattern()
+	AddAlignmentPattern(v)
 	AddTimingPattern()
 	AddDarkModule()
 	Reserve_VersionInformationArea_FormatInformationArea(v)
