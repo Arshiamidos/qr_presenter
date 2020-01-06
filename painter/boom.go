@@ -6,17 +6,34 @@ import (
 	"image/draw"
 	"image/png"
 	"os"
+	"qr/utils"
 )
 
 type Boom struct {
 	boom  *image.RGBA
 	brush *Brush
+	dirty [][]bool
 }
 
-func NewBoom(w int, h int) *Boom {
+func NewBoom(w int, h int, v int) *Boom {
+
+	dirty := make([][]bool, utils.QrSize(v)+2)
+	for i := range dirty {
+		dirty[i] = make([]bool, utils.QrSize(v)+2)
+	}
+	for i := 0; i < len(dirty); i++ {
+		for j := 0; j < len(dirty[0]); j++ {
+			if i == 0 || j == 0 {
+				dirty[i][j] = true
+			}
+			dirty[i][j] = false
+		}
+	}
+
 	return &Boom{
 		image.NewRGBA(image.Rect(0, 0, w, h)),
 		&Brush{},
+		dirty,
 	}
 }
 func (b *Boom) SetBrush(br *Brush) {
@@ -47,10 +64,10 @@ func (b *Boom) DrawLineV(x int, y int, yy int) {
 func (b *Boom) DrawLineZebraH(x int, y int, xx int) {
 
 	for i := x; i <= xx; i++ {
-		if(i%2!=0){
+		if i%2 != 0 {
 			b.brush.ChangeColor(color.RGBA{0, 0, 0, 255})
 			b.Draw(i, y)
-		}else{
+		} else {
 			b.brush.ChangeColor(color.RGBA{255, 255, 255, 255})
 			b.Draw(i, y)
 		}
@@ -58,16 +75,16 @@ func (b *Boom) DrawLineZebraH(x int, y int, xx int) {
 }
 func (b *Boom) DrawLineZebraV(x int, y int, yy int) {
 	for i := y; i <= yy; i++ {
-		if(i%2!=0){
+		if i%2 != 0 {
 			b.brush.ChangeColor(color.RGBA{0, 0, 0, 255})
 			b.Draw(x, i)
-		}else{
+		} else {
 			b.brush.ChangeColor(color.RGBA{255, 255, 255, 255})
 			b.Draw(x, i)
 		}
 	}
 }
-func (b *Boom) DrawAlign(x int,y int){
+func (b *Boom) DrawAlign(x int, y int) {
 	b.brush.ChangeColor(color.RGBA{255, 0, 0, 255})
 	b.DrawRect(
 		x-2*b.brush.siz.Bounds().Dx(),
@@ -79,5 +96,7 @@ func (b *Boom) DrawAlign(x int,y int){
 func (b *Boom) Draw(x int, y int) {
 	brs := b.brush.siz.Bounds().Dx()
 	r := image.Rect(x*brs, y*brs, x*brs+brs, y*brs+brs)
+	//fmt.Println("::", x, y)
+	b.dirty[x][y] = true
 	draw.Draw(b.boom, r.Bounds(), &image.Uniform{b.brush.clr}, image.ZP, draw.Src)
 }
