@@ -122,39 +122,71 @@ func AddDarkModule() {
 }
 
 func Reserve_VersionInformationArea_FormatInformationArea(v int) {
-	brush.ChangeColor(color.RGBA{0,0,255,255})
+	brush.ChangeColor(color.RGBA{255,255,255,255})
 
 	boom.DrawLineH(boom.boom.Rect.Dx()/BRUSH_SIZE-8,9,boom.boom.Rect.Dx()/BRUSH_SIZE)
 	boom.DrawLineV(9,boom.boom.Rect.Dy()/BRUSH_SIZE-7,boom.boom.Rect.Dy()/BRUSH_SIZE)
+
+	boom.DrawLineV(9,1,9)
+	boom.DrawLineH(1,9,9)
+	AddTimingPattern()
+
 
 	if v>=7 {
 		boom.DrawRect(1,boom.boom.Rect.Dy()/BRUSH_SIZE-11,6,boom.boom.Rect.Dy()/BRUSH_SIZE-9)
 		boom.DrawRect(boom.boom.Rect.Dx()/BRUSH_SIZE-11,1,boom.boom.Rect.Dx()/BRUSH_SIZE-9,6)
 	}
 }
+func DrawBoubleColumn(r int,i int,bits string) string{
+	if(!boom.dirty[r][i]){
+		for offset := 0; offset < 2; offset++ {
+			if bits[0]=='1'{
+				brush.ChangeColor(color.RGBA{0,0,0,255})
+				//brush.ChangeColor(color.RGBA{0,255,0,255})
+			}else{
+				brush.ChangeColor(color.RGBA{255,255,255,255})
+				//brush.ChangeColor(color.RGBA{255,0,0,255})
+			}
+			fmt.Println(r-offset,i,len(bits))
+			boom.Draw(r-offset,i)
+			 if(len(bits)<15){
+			 	panic("test")
+			 }
+			bits= bits[1:]
+		}
+	}
+	return bits
+	
+}
 func FillData(bits string){
 
-	r:=len(boom.dirty)-1
-	c:=len(boom.dirty[0])-1
-	fmt.Println("...",len(boom.dirty),len(boom.dirty[0]))
+	defer func() {
+        if r := recover(); r != nil {
+            fmt.Println("Recovered in f", r)
+        }
+	}()
+	
+	r:=len(boom.dirty)-2
+	c:=r
+	columnReverse:=true
 
-	for c!=0{
-		for i := r; i >0; i-- {
-			fmt.Println("> ",c,i)
-			if(!boom.dirty[i][c]){
-				if bits[0]=='0'{
-					brush.ChangeColor(color.RGBA{0,0,0,255})
-				}else{
-					brush.ChangeColor(color.RGBA{255,255,255,255})
+	for r!=0{
+		if columnReverse {
+			for i := c; i >0; i-- {
+				if(!boom.dirty[r][i]){
+					bits=DrawBoubleColumn(r,i,bits)
 				}
-				fmt.Println(c,i)
-				boom.Draw(i,c)
-				bits=bits[1:]
+			}
+		}else{
+			for i := 1; i <=c; i++ {
+					bits=DrawBoubleColumn(r,i,bits)
+				
 			}
 		}
-		c=c-1
-		if c == 7{
-			c=c-1
+		r=r-2
+		columnReverse=!columnReverse
+		if r == 7{
+			r=r-1
 		}
 
 	}
