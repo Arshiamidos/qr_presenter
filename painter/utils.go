@@ -144,9 +144,9 @@ func FillData(){
 			fmt.Println("> ",c,i)
 			if(!boom.dirty[i][c]){
 				if bits[0]=='0'{
-					brush.ChangeColor(color.RGBA{255,0,0,255})
+					brush.ChangeColor(color.RGBA{0,0,0,255})
 				}else{
-					brush.ChangeColor(color.RGBA{0,255,0,255})
+					brush.ChangeColor(color.RGBA{255,255,255,255})
 				}
 				fmt.Println(c,i)
 				boom.Draw(i,c)
