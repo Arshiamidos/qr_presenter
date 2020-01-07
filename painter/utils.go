@@ -129,10 +129,55 @@ func DrawOneColor(x int,y int,c rune ){
 	}
 	boom.Draw(x,y)
 }
+func VersionInfomationArea(v int){
+	if v >= 7 {
+		versionInformation:=utils.DrawVersionInformation(v)
+		fmt.Println("<<< version ifo",versionInformation)
+		DrawOneColor(  1,boom.boom.Bounds().Dy()/BRUSH_SIZE-11		,rune(versionInformation[17]		))
+		DrawOneColor(  1,boom.boom.Bounds().Dy()/BRUSH_SIZE-10		,rune(versionInformation[16]		))
+		DrawOneColor(  1,boom.boom.Bounds().Dy()/BRUSH_SIZE-9		,rune(versionInformation[15]		))
+		DrawOneColor(  2,boom.boom.Bounds().Dy()/BRUSH_SIZE-11		,rune(versionInformation[14]		))
+		DrawOneColor(  2,boom.boom.Bounds().Dy()/BRUSH_SIZE-10		,rune(versionInformation[13]		))
+		DrawOneColor(  2,boom.boom.Bounds().Dy()/BRUSH_SIZE-9		,rune(versionInformation[12]		))
+		DrawOneColor(  3,boom.boom.Bounds().Dy()/BRUSH_SIZE-11		,rune(versionInformation[11]		))
+		DrawOneColor(  3,boom.boom.Bounds().Dy()/BRUSH_SIZE-10		,rune(versionInformation[10]		))
+		DrawOneColor(  3,boom.boom.Bounds().Dy()/BRUSH_SIZE-9		,rune(versionInformation[9]		))
+		DrawOneColor(  4,boom.boom.Bounds().Dy()/BRUSH_SIZE-11		,rune(versionInformation[8]		))
+		DrawOneColor(  4,boom.boom.Bounds().Dy()/BRUSH_SIZE-10		,rune(versionInformation[7]		))
+		DrawOneColor(  4,boom.boom.Bounds().Dy()/BRUSH_SIZE-9		,rune(versionInformation[6]		))
+		DrawOneColor(  5,boom.boom.Bounds().Dy()/BRUSH_SIZE-11		,rune(versionInformation[5]		))
+		DrawOneColor(  5,boom.boom.Bounds().Dy()/BRUSH_SIZE-10		,rune(versionInformation[4]		))
+		DrawOneColor(  5,boom.boom.Bounds().Dy()/BRUSH_SIZE-9		,rune(versionInformation[3]		))
+		DrawOneColor(  6,boom.boom.Bounds().Dy()/BRUSH_SIZE-11		,rune(versionInformation[2]		))
+		DrawOneColor(  6,boom.boom.Bounds().Dy()/BRUSH_SIZE-10		,rune(versionInformation[1]		))
+		DrawOneColor(  6,boom.boom.Bounds().Dy()/BRUSH_SIZE-9		,rune(versionInformation[0]		))
 
-func Reserve_VersionInformationArea_FormatInformationArea(v int, e rune,m int) {
+		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-11 ,1 ,rune(versionInformation[17]		))
+		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-10 ,1 ,rune(versionInformation[16]		))
+		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-9	,1 ,rune(versionInformation[15]		))
+		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-11 ,2 ,rune(versionInformation[14]		))
+		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-10 ,2 ,rune(versionInformation[13]		))
+		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-9	,2 ,rune(versionInformation[12]		))
+		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-11 ,3 ,rune(versionInformation[11]		))
+		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-10 ,3 ,rune(versionInformation[10]		))
+		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-9	,3 ,rune(versionInformation[9]		))
+		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-11 ,4 ,rune(versionInformation[8]		))
+		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-10 ,4 ,rune(versionInformation[7]		))
+		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-9	,4 ,rune(versionInformation[6]		))
+		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-11 ,5 ,rune(versionInformation[5]		))
+		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-10 ,5 ,rune(versionInformation[4]		))
+		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-9	,5 ,rune(versionInformation[3]		))
+		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-11	,6 ,rune(versionInformation[2]		))
+		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-10	,6 ,rune(versionInformation[1]		))
+		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-9	,6 ,rune(versionInformation[0]		))
+
+
+	}
+}
+func FormatInformationArea(v int, e rune,m int) {
 	brush.ChangeColor(color.RGBA{255, 255, 255, 255})
 	formatInfo:=utils.DrawFormatInformation(e,m)
+	fmt.Println("<<< formatinfo",formatInfo,utils.QrSize(v),boom.boom.Bounds().Dx()/BRUSH_SIZE)
 	
 	DrawOneColor(1,9,rune(formatInfo[0]		))
 	DrawOneColor(2,9,rune(formatInfo[1]		))
@@ -150,76 +195,36 @@ func Reserve_VersionInformationArea_FormatInformationArea(v int, e rune,m int) {
 	DrawOneColor(9,2,rune(formatInfo[13]	))
 	DrawOneColor(9,1,rune(formatInfo[14]	))
 
-	DrawOneColor(9,boom.boom.Bounds().Dy()/BRUSH_SIZE-0-1,rune(formatInfo[0]			))
-	DrawOneColor(9,boom.boom.Bounds().Dy()/BRUSH_SIZE-1-1,rune(formatInfo[1]			))
-	DrawOneColor(9,boom.boom.Bounds().Dy()/BRUSH_SIZE-2-1,rune(formatInfo[2]			))
-	DrawOneColor(9,boom.boom.Bounds().Dy()/BRUSH_SIZE-3-1,rune(formatInfo[3]			))
-	DrawOneColor(9,boom.boom.Bounds().Dy()/BRUSH_SIZE-4-1,rune(formatInfo[4]			))
-	DrawOneColor(9,boom.boom.Bounds().Dy()/BRUSH_SIZE-5-1,rune(formatInfo[5]			))
-	DrawOneColor(9,boom.boom.Bounds().Dy()/BRUSH_SIZE-6-1,rune(formatInfo[6]			))
+	DrawOneColor(9,boom.boom.Bounds().Dy()/BRUSH_SIZE-0-1,		rune(formatInfo[0]			))
+	DrawOneColor(9,boom.boom.Bounds().Dy()/BRUSH_SIZE-1-1,		rune(formatInfo[1]			))
+	DrawOneColor(9,boom.boom.Bounds().Dy()/BRUSH_SIZE-2-1,		rune(formatInfo[2]			))
+	DrawOneColor(9,boom.boom.Bounds().Dy()/BRUSH_SIZE-3-1,		rune(formatInfo[3]			))
+	DrawOneColor(9,boom.boom.Bounds().Dy()/BRUSH_SIZE-4-1,		rune(formatInfo[4]			))
+	DrawOneColor(9,boom.boom.Bounds().Dy()/BRUSH_SIZE-5-1,		rune(formatInfo[5]			))
+	DrawOneColor(9,boom.boom.Bounds().Dy()/BRUSH_SIZE-6-1,		rune(formatInfo[6]			))
 
-	DrawOneColor(  boom.boom.Bounds().Dx()/BRUSH_SIZE-7-1,9,rune(formatInfo[7]		))
-	DrawOneColor(  boom.boom.Bounds().Dx()/BRUSH_SIZE-6-1,9,rune(formatInfo[8]		))
-	DrawOneColor(  boom.boom.Bounds().Dx()/BRUSH_SIZE-5-1,9,rune(formatInfo[9]		))
-	DrawOneColor(  boom.boom.Bounds().Dx()/BRUSH_SIZE-4-1,9,rune(formatInfo[10]		))
-	DrawOneColor(  boom.boom.Bounds().Dx()/BRUSH_SIZE-3-1,9,rune(formatInfo[11]		))
-	DrawOneColor(  boom.boom.Bounds().Dx()/BRUSH_SIZE-2-1,9,rune(formatInfo[12]		))
-	DrawOneColor(  boom.boom.Bounds().Dx()/BRUSH_SIZE-1-1,9,rune(formatInfo[13]		))
-	DrawOneColor(  boom.boom.Bounds().Dx()/BRUSH_SIZE-0-1,9,rune(formatInfo[14]		))
+	DrawOneColor(  boom.boom.Bounds().Dx()/BRUSH_SIZE-7-1,9,	rune(formatInfo[7]		))
+	DrawOneColor(  boom.boom.Bounds().Dx()/BRUSH_SIZE-6-1,9,	rune(formatInfo[8]		))
+	DrawOneColor(  boom.boom.Bounds().Dx()/BRUSH_SIZE-5-1,9,	rune(formatInfo[9]		))
+	DrawOneColor(  boom.boom.Bounds().Dx()/BRUSH_SIZE-4-1,9,	rune(formatInfo[10]		))
+	DrawOneColor(  boom.boom.Bounds().Dx()/BRUSH_SIZE-3-1,9,	rune(formatInfo[11]		))
+	DrawOneColor(  boom.boom.Bounds().Dx()/BRUSH_SIZE-2-1,9,	rune(formatInfo[12]		))
+	DrawOneColor(  boom.boom.Bounds().Dx()/BRUSH_SIZE-1-1,9,	rune(formatInfo[13]		))
+	DrawOneColor(  boom.boom.Bounds().Dx()/BRUSH_SIZE-0-1,9,	rune(formatInfo[14]		))
 
-	if v >= 7 {
-		versionInformation:=utils.DrawVersionInformation(v)
-		DrawOneColor(  1,boom.boom.Bounds().Dy()/BRUSH_SIZE-11,rune(versionInformation[0]		))
-		DrawOneColor(  1,boom.boom.Bounds().Dy()/BRUSH_SIZE-10,rune(versionInformation[1]		))
-		DrawOneColor(  1,boom.boom.Bounds().Dy()/BRUSH_SIZE-9,rune(versionInformation[2]		))
-		DrawOneColor(  2,boom.boom.Bounds().Dy()/BRUSH_SIZE-11,rune(versionInformation[3]		))
-		DrawOneColor(  2,boom.boom.Bounds().Dy()/BRUSH_SIZE-10,rune(versionInformation[4]		))
-		DrawOneColor(  2,boom.boom.Bounds().Dy()/BRUSH_SIZE-9,rune(versionInformation[5]		))
-		DrawOneColor(  3,boom.boom.Bounds().Dy()/BRUSH_SIZE-11,rune(versionInformation[6]		))
-		DrawOneColor(  3,boom.boom.Bounds().Dy()/BRUSH_SIZE-10,rune(versionInformation[7]		))
-		DrawOneColor(  3,boom.boom.Bounds().Dy()/BRUSH_SIZE-9,rune(versionInformation[8]		))
-		DrawOneColor(  4,boom.boom.Bounds().Dy()/BRUSH_SIZE-11,rune(versionInformation[9]		))
-		DrawOneColor(  4,boom.boom.Bounds().Dy()/BRUSH_SIZE-10,rune(versionInformation[10]		))
-		DrawOneColor(  4,boom.boom.Bounds().Dy()/BRUSH_SIZE-9,rune(versionInformation[11]		))
-		DrawOneColor(  5,boom.boom.Bounds().Dy()/BRUSH_SIZE-11,rune(versionInformation[12]		))
-		DrawOneColor(  5,boom.boom.Bounds().Dy()/BRUSH_SIZE-10,rune(versionInformation[13]		))
-		DrawOneColor(  5,boom.boom.Bounds().Dy()/BRUSH_SIZE-9,rune(versionInformation[14]		))
-		DrawOneColor(  6,boom.boom.Bounds().Dy()/BRUSH_SIZE-11,rune(versionInformation[15]		))
-		DrawOneColor(  6,boom.boom.Bounds().Dy()/BRUSH_SIZE-10,rune(versionInformation[16]		))
-		DrawOneColor(  6,boom.boom.Bounds().Dy()/BRUSH_SIZE-9,rune(versionInformation[17]		))
-
-		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-11 -1,1 ,rune(versionInformation[0]		))
-		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-10 -1,1 ,rune(versionInformation[1]		))
-		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-9	-1,1 ,rune(versionInformation[2]		))
-		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-11 -1,2 ,rune(versionInformation[3]		))
-		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-10 -1,2 ,rune(versionInformation[4]		))
-		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-9	-1,2 ,rune(versionInformation[5]		))
-		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-11 -1,3 ,rune(versionInformation[6]		))
-		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-10 -1,3 ,rune(versionInformation[7]		))
-		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-9	-1,3 ,rune(versionInformation[8]		))
-		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-11 -1,4 ,rune(versionInformation[9]		))
-		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-10 -1,4 ,rune(versionInformation[10]		))
-		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-9	-1,4 ,rune(versionInformation[11]		))
-		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-11 -1,5 ,rune(versionInformation[12]		))
-		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-10 -1,5 ,rune(versionInformation[13]		))
-		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-9	-1,5 ,rune(versionInformation[14]		))
-		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-11	-1,6 ,rune(versionInformation[15]		))
-		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-10	-1,6 ,rune(versionInformation[16]		))
-		DrawOneColor( boom.boom.Bounds().Dx()/BRUSH_SIZE-9	-1,6 ,rune(versionInformation[17]		))
-
-
-	}
 }
 func DrawBoubleColumn(r int, i int, bits string, m int) string {
 
 	for offset := 0; offset < 2; offset++ {
-		if int(int(bits[0])-'0')^GetMask(i, r-offset, m) == 1 {
-			brush.ChangeColor(color.RGBA{0, 0, 0, 255})
-		} else {
-			brush.ChangeColor(color.RGBA{255, 255, 255, 255})
+		if !boom.dirty[r-offset][i] {
+			if int(int(bits[0])-'0')^GetMask(i, r-offset, m) == 1 {
+				brush.ChangeColor(color.RGBA{0, 0, 0, 255})
+			} else {
+				brush.ChangeColor(color.RGBA{255, 255, 255, 255})
+			}
+			boom.Draw(r-offset, i)
+			bits = bits[1:]
 		}
-		boom.Draw(r-offset, i)
-		bits = bits[1:]
 	}
 	
 	return bits
@@ -267,18 +272,14 @@ func FillDataWithMask(_bits string, mask int) {
 	c := r
 	columnReverse := true
 	bits:=_bits
-	for r!= 0 {
+	for len(bits)!= 0 {
 		if columnReverse {
 			for i := c; i > 0; i-- {
-				if !boom.dirty[r][i] {
 					bits = DrawBoubleColumn(r, i, bits, mask)
-				}
 			}
 		} else {
 			for i := 1; i <= c; i++ {
-				if !boom.dirty[r][i] {
 					bits = DrawBoubleColumn(r, i, bits, mask)
-				}
 
 			}
 		}
@@ -343,7 +344,7 @@ func PaintV(v int,e rune, brsh_size int, bits string) {
 	AddAlignmentPattern(v)
 	AddTimingPattern()
 	AddDarkModule()
-	
+	VersionInfomationArea(v)
 	duplicate := make([][]bool, len(boom.dirty))
 	for i := range boom.dirty {
 		duplicate[i] = make([]bool, len(boom.dirty[i]))
@@ -352,56 +353,56 @@ func PaintV(v int,e rune, brsh_size int, bits string) {
 
 	p:=[8]int{}
 
-	Reserve_VersionInformationArea_FormatInformationArea(v,e,0)
+	FormatInformationArea(v,e,0)
 	FillDataWithMask(bits, 0)
 	boom.SaveBoom("0")
 	p[0]=CalcPenalties()
 	prettyPrint()
 	freshCopy(duplicate)
 
-	Reserve_VersionInformationArea_FormatInformationArea(v,e,1)
+	FormatInformationArea(v,e,1)
 	FillDataWithMask(bits, 1)
 	boom.SaveBoom("1")
 	p[1]=CalcPenalties()
 	prettyPrint()
 	freshCopy(duplicate)
 
-	Reserve_VersionInformationArea_FormatInformationArea(v,e,2)
+	FormatInformationArea(v,e,2)
 	FillDataWithMask(bits, 2)
 	boom.SaveBoom("2")
 	p[2]=CalcPenalties()
 	prettyPrint()
 	freshCopy(duplicate)
 
-	Reserve_VersionInformationArea_FormatInformationArea(v,e,3)
+	FormatInformationArea(v,e,3)
 	FillDataWithMask(bits, 3)
 	boom.SaveBoom("3")
 	p[3]=CalcPenalties()
 	prettyPrint()
 	freshCopy(duplicate)
 
-	Reserve_VersionInformationArea_FormatInformationArea(v,e,4)
+	FormatInformationArea(v,e,4)
 	FillDataWithMask(bits, 4)
 	boom.SaveBoom("4")
 	p[4]=CalcPenalties()
 	prettyPrint()
 	freshCopy(duplicate)
 
-	Reserve_VersionInformationArea_FormatInformationArea(v,e,5)
+	FormatInformationArea(v,e,5)
 	FillDataWithMask(bits, 5)
 	boom.SaveBoom("5")
 	p[5]=CalcPenalties()
 	prettyPrint()
 	freshCopy(duplicate)
 
-	Reserve_VersionInformationArea_FormatInformationArea(v,e,6)
+	FormatInformationArea(v,e,6)
 	FillDataWithMask(bits, 6)
 	boom.SaveBoom("6")
 	p[6]=CalcPenalties()
 	prettyPrint()
 	freshCopy(duplicate)
 
-	Reserve_VersionInformationArea_FormatInformationArea(v,e,7)
+	FormatInformationArea(v,e,7)
 	FillDataWithMask(bits, 7)
 	boom.SaveBoom("7")
 	p[7]=CalcPenalties()
