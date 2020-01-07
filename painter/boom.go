@@ -10,23 +10,30 @@ import (
 )
 
 type Boom struct {
-	boom  *image.RGBA
-	brush *Brush
-	dirty [][]bool
+	boom        *image.RGBA
+	brush       *Brush
+	dirty       [][]bool
+	BlackWhites [][]bool
 }
 
 func NewBoom(w int, h int, v int) *Boom {
 
-	dirty := make([][]bool, utils.QrSize(v)+2)
+	dirty := make([][]bool, utils.QrSize(v)+1)
+	BlackWhites := make([][]bool, utils.QrSize(v)+1)
+
 	for i := range dirty {
-		dirty[i] = make([]bool, utils.QrSize(v)+2)
+		dirty[i] = make([]bool, utils.QrSize(v)+1)
+		BlackWhites[i] = make([]bool, utils.QrSize(v)+1)
+
 	}
 	for i := 0; i < len(dirty); i++ {
 		for j := 0; j < len(dirty[0]); j++ {
 			if i == 0 || j == 0 {
 				dirty[i][j] = true
+				BlackWhites[i][j] = true
 			}
 			dirty[i][j] = false
+			BlackWhites[i][j] = false
 		}
 	}
 
@@ -34,13 +41,14 @@ func NewBoom(w int, h int, v int) *Boom {
 		image.NewRGBA(image.Rect(0, 0, w, h)),
 		&Brush{},
 		dirty,
+		BlackWhites,
 	}
 }
 func (b *Boom) SetBrush(br *Brush) {
 	b.brush = br
 }
-func (b *Boom) SaveBoom() {
-	outputFile, _ := os.Create("QR.png")
+func (b *Boom) SaveBoom(s string) {
+	outputFile, _ := os.Create("QR_" + s + ".png")
 	png.Encode(outputFile, b.boom)
 	outputFile.Close()
 }
@@ -96,7 +104,12 @@ func (b *Boom) DrawAlign(x int, y int) {
 func (b *Boom) Draw(x int, y int) {
 	brs := b.brush.siz.Bounds().Dx()
 	r := image.Rect(x*brs, y*brs, x*brs+brs, y*brs+brs)
-	//fmt.Println("::", x, y)
 	b.dirty[x][y] = true
+	if b.brush.clr.R == 255 {
+		b.BlackWhites[x][y] = true
+
+	} else {
+		b.BlackWhites[x][y] = false
+	}
 	draw.Draw(b.boom, r.Bounds(), &image.Uniform{b.brush.clr}, image.ZP, draw.Src)
 }
